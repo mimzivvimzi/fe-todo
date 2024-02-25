@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { TodoList } from "@/components/TodoList";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 export default function Home() {
   return (

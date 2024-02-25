@@ -1,6 +1,10 @@
 import { BaseSyntheticEvent, useState } from "react";
 
-const NewTodo = () => {
+type NewTodoProps = {
+  onClick?: () => void;
+};
+
+const NewTodo = (props: NewTodoProps) => {
   const [todoInput, setTodoInput] = useState<string>("");
   const postItems = async () => {
     const url: string = `${process.env.NEXT_PUBLIC_API_URL}/api/${process.env.NEXT_PUBLIC_TEST_USERNAME}/todos/create`;
@@ -25,6 +29,7 @@ const NewTodo = () => {
     setTodoInput("");
     event.preventDefault();
     postItems().catch((e) => console.error(e));
+    props.onClick?.();
   };
 
   return (
