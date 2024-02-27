@@ -1,4 +1,5 @@
 import { BaseSyntheticEvent, useState } from "react";
+import { Toast } from "react-bootstrap";
 
 type NewTodoProps = {
   onClick?: () => void;
@@ -6,6 +7,8 @@ type NewTodoProps = {
 
 const NewTodo = (props: NewTodoProps) => {
   const [todoInput, setTodoInput] = useState<string>("");
+  const [showWarning, setShowWarning] = useState<boolean>(false);
+
   const postItems = async () => {
     const url: string = `${process.env.NEXT_PUBLIC_API_URL}/api/${process.env.NEXT_PUBLIC_TEST_USERNAME}/todos/create`;
     try {
@@ -26,27 +29,47 @@ const NewTodo = (props: NewTodoProps) => {
   };
 
   const submitHandler = (event: BaseSyntheticEvent) => {
-    setTodoInput("");
     event.preventDefault();
-    postItems().catch((e) => console.error(e));
-    props.onClick?.();
+    if (todoInput.trim() !== "") {
+      setTodoInput("");
+      postItems().catch((e) => console.error(e));
+      props.onClick?.();
+    } else {
+      setShowWarning(true);
+    }
   };
 
   return (
-    <form className="todo-form" onSubmit={submitHandler}>
-      <input
-        className="todo-input"
-        type="text"
-        id="new-todo"
-        name="new-todo"
-        placeholder="Add your to-do..."
-        onChange={(e) => setTodoInput(e.target.value)}
-        value={todoInput}
-      />
-      <button className="add-button" type="submit">
-        Add
-      </button>
-    </form>
+    <>
+      <form className="todo-form" onSubmit={submitHandler}>
+        <input
+          className="todo-input"
+          type="text"
+          id="new-todo"
+          name="new-todo"
+          placeholder="Add your to-do..."
+          onChange={(e) => setTodoInput(e.target.value)}
+          value={todoInput}
+        />
+        <button
+          style={{ position: "relative" }}
+          className="add-button"
+          type="submit"
+        >
+          Add
+        </button>
+      </form>
+      <Toast
+        style={{ position: "absolute", zIndex: 20 }}
+        bg="warning"
+        show={showWarning}
+        onClose={() => setShowWarning(false)}
+        delay={3000}
+        autohide
+      >
+        <Toast.Body>Text must not be empty</Toast.Body>
+      </Toast>
+    </>
   );
 };
 

@@ -1,6 +1,7 @@
 import { TodoDto } from "@/interface/Todo";
 import { Menu } from "@headlessui/react";
 import { useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 type TodoItemProps = {
   todo: TodoDto;
@@ -56,8 +57,21 @@ const TodoItem = (props: TodoItemProps) => {
   return (
     <div className="todo-item">
       <div className="item-inner">
-        <input type="checkbox" checked={isChecked} onChange={handleClick} />
-        <div>{todo.text}</div>
+        <input
+          type="checkbox"
+          className="form-check-input"
+          checked={isChecked}
+          onChange={handleClick}
+        />
+        <div
+          style={
+            isChecked
+              ? { textDecorationLine: "line-through", color: "#a9a9a9" }
+              : { color: "#2e2e2e" }
+          }
+        >
+          {todo.text}
+        </div>
       </div>
       <div
         style={{ position: "relative", cursor: "pointer", marginRight: "20px" }}
@@ -70,6 +84,7 @@ const TodoItem = (props: TodoItemProps) => {
                 width="24"
                 height="24"
                 fill="currentColor"
+                opacity="0.4"
                 className="bi bi-three-dots"
                 viewBox="0 0 16 16"
               >

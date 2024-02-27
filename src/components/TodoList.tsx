@@ -4,6 +4,8 @@ import { TodoDto } from "@/interface/Todo";
 import useSWR from "swr";
 import React, { useState } from "react";
 import { Menu } from "@headlessui/react";
+import ProgressBar from "react-bootstrap/ProgressBar";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const TodoList = () => {
   const [filter, setFilter] = useState<{ label: string; value: Filter }>({
@@ -16,6 +18,8 @@ const TodoList = () => {
     fetcher,
     { refreshInterval: 3000 }
   );
+
+  const completedCount = data && data.filter((todo) => todo.isDone).length;
 
   if (error) {
     console.error(error);
@@ -53,13 +57,25 @@ const TodoList = () => {
 
   return (
     <div className="list-container">
+      <div className="progress-section">
+        <h2 style={{ fontSize: 28 }}>Progress</h2>
+        {data && (
+          <div>
+            <ProgressBar
+              max={data.length}
+              now={completedCount}
+              variant="info"
+            />
+            <div className="completed-text">{completedCount} completed</div>
+          </div>
+        )}
+      </div>
       <div className="header-row">
         <div className="todo-title">To-dos</div>
         <div
           style={{
             position: "relative",
             cursor: "pointer",
-            marginRight: "20px",
           }}
         >
           <Menu as="div">
@@ -85,13 +101,17 @@ const TodoList = () => {
             </div>
             <Menu.Items className="filter-button-options">
               {filterOptions.map((option) => (
-                <Menu.Item
-                  className="filter-button=option"
-                  as="div"
-                  key={option.label}
-                  onClick={() => setFilter(option)}
-                >
-                  {option.label}
+                <Menu.Item key={option.value} as="div">
+                  {({ active }) => (
+                    <div
+                      className={`filter-button-option ${
+                        active ? "filter-active" : "filter-inactive"
+                      }`}
+                      onClick={() => setFilter(option)}
+                    >
+                      {option.label}
+                    </div>
+                  )}
                 </Menu.Item>
               ))}
             </Menu.Items>

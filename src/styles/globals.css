@@ -25,7 +25,7 @@ button {
   align-items: center;
   min-width: 720px;
   padding: 60px;
-
+  background-color: #D1D0D9;
 }
 
 .list-container {
@@ -38,40 +38,66 @@ button {
   border-radius: 20px;
 }
 
+.progress-section {
+  padding: 20px;
+  background-color: #576371;
+  color: #fff;
+  border-radius: 20px;
+}
+
+.completed-text {
+  color: #e0e0e0;
+  font-weight: 400;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
 .header-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 20px;
 }
 
 .filter-button {
   display: flex;
   position: relative;
   justify-content: space-between;
+  align-items: center;
   cursor: pointer;
   padding: 10px;
   border-radius: 12px;
   background-color: white;
-  width: 110px;
+  width: 90px;
+  font-size: 13px;
 }
 
 .filter-button-options {
   position: absolute;
-  height: 60px;
+  z-index: 10;
+  bottom: -105px;
+  width: 100px;
   cursor: pointer;
-  background: #FFFFFF;
+  background: #fff;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  padding: 10px 20px;
+  padding: 5px;
 }
 
 .filter-button-option {
-  position: absolute;
-  cursor: pointer;
-  background: #FFFFFF;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  padding: 10px 20px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.filter-active {
+  background-color: #526F92;
+  color: #fff;
+}
+
+.filter-inactive {
+  background-color: #fff;
+  color: #2e2e2e;
 }
 
 .todo-form {
@@ -137,14 +163,31 @@ button {
 
 .item-inner {
   display: flex;
+  align-items: center;
   gap: 10px;
+}
+
+input[type=checkbox]{
+  accent-color: #526f92;
+  background-size: 15px;
+  width: 22px;
+  height: 22px;
+  border: 2px solid #526f92;
+  outline-color: #526f92;
+}
+
+input[type=checkbox]:checked {
+  accent-color: #526f92;
+  background-color: #526f92;
+  border: 2px solid #526f92;
 }
 
 .delete-button {
   position: absolute;
   cursor: pointer;
+  font-size: 14px;
   top: 20px;
-  right: 10px;
+  right: 4px;
   background: #FFFFFF;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
