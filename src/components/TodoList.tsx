@@ -118,8 +118,15 @@ const TodoList = () => {
           </Menu>
         </div>
       </div>
-      <NewTodo onClick={() => mutate().catch((e) => console.error(e))} />
-      {data && data.length > 0 && renderFilteredView(data, filter.value)}
+      {data && data.length > 0 && (
+        <>
+          <NewTodo
+            totalTodos={data.length}
+            onClick={() => mutate().catch((e) => console.error(e))}
+          />
+          {renderFilteredView(data, filter.value)}
+        </>
+      )}
     </div>
   );
 };

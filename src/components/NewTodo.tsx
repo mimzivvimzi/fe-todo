@@ -1,11 +1,14 @@
 import { BaseSyntheticEvent, useState } from "react";
-import { Toast } from "react-bootstrap";
+import { OverlayTrigger, Toast, Tooltip } from "react-bootstrap";
 
 type NewTodoProps = {
+  totalTodos: number;
   onClick?: () => void;
 };
 
 const NewTodo = (props: NewTodoProps) => {
+  const { totalTodos } = props;
+  const maxTodos = totalTodos === 10;
   const [todoInput, setTodoInput] = useState<string>("");
   const [showWarning, setShowWarning] = useState<boolean>(false);
 
@@ -51,16 +54,32 @@ const NewTodo = (props: NewTodoProps) => {
           onChange={(e) => setTodoInput(e.target.value)}
           value={todoInput}
         />
-        <button
-          style={{ position: "relative" }}
-          className="add-button"
-          type="submit"
-        >
-          Add
-        </button>
+        {maxTodos ? (
+          <OverlayTrigger
+            placement={"right"}
+            overlay={<Tooltip>Max 10 to-dos</Tooltip>}
+          >
+            <button
+              style={{ opacity: "50%" }}
+              className="add-button"
+              type="submit"
+              disabled={true}
+            >
+              Add
+            </button>
+          </OverlayTrigger>
+        ) : (
+          <button
+            style={{ position: "relative" }}
+            className="add-button"
+            type="submit"
+          >
+            Add
+          </button>
+        )}
       </form>
       <Toast
-        style={{ position: "absolute", zIndex: 20 }}
+        style={{ position: "absolute", zIndex: 10 }}
         bg="warning"
         show={showWarning}
         onClose={() => setShowWarning(false)}
