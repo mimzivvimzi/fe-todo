@@ -188,7 +188,7 @@ input[type=checkbox]:checked {
   font-size: 14px;
   top: 20px;
   right: 4px;
-  background: #FFFFFF;
+  background: #fff;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   color: #E07C7C;

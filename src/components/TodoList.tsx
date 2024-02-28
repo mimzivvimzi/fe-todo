@@ -15,8 +15,7 @@ const TodoList = () => {
   const fetcher = (url: string) => fetch(url).then((res) => res.json());
   const { data, error, mutate } = useSWR<TodoDto[]>(
     `${process.env.NEXT_PUBLIC_API_URL}/api/${process.env.NEXT_PUBLIC_TEST_USERNAME}/todos`,
-    fetcher,
-    { refreshInterval: 3000 }
+    fetcher
   );
 
   const completedCount = data && data.filter((todo) => todo.isDone).length;

@@ -35,8 +35,9 @@ const NewTodo = (props: NewTodoProps) => {
     event.preventDefault();
     if (todoInput.trim() !== "") {
       setTodoInput("");
-      postItems().catch((e) => console.error(e));
-      props.onClick?.();
+      postItems()
+        .then(() => props.onClick?.())
+        .catch((e) => console.error(e));
     } else {
       setShowWarning(true);
     }
@@ -79,8 +80,12 @@ const NewTodo = (props: NewTodoProps) => {
         )}
       </form>
       <Toast
-        style={{ position: "absolute", zIndex: 10 }}
-        bg="warning"
+        style={{
+          position: "absolute",
+          zIndex: 10,
+          color: "red",
+          backgroundColor: "#fff",
+        }}
         show={showWarning}
         onClose={() => setShowWarning(false)}
         delay={3000}

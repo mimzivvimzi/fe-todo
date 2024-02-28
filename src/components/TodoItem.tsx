@@ -45,13 +45,15 @@ const TodoItem = (props: TodoItemProps) => {
 
   const handleClick = () => {
     setIsChecked(!isChecked);
-    putItem().catch((e) => console.error(e));
-    props.onUpdate?.();
+    putItem()
+      .then(() => props.onUpdate?.())
+      .catch((e) => console.error(e));
   };
 
   const handleDelete = () => {
-    deleteItem().catch((e) => console.error(e));
-    props.onUpdate?.();
+    deleteItem()
+      .then(() => props.onUpdate?.())
+      .catch((e) => console.error(e));
   };
 
   return (
